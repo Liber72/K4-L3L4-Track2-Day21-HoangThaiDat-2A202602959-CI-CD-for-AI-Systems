@@ -310,6 +310,8 @@ Checklist đầy đủ trước khi nộp: [nop-bai/README.md](nop-bai/README.md
 
 Các thách thức dưới đây không bắt buộc. Hoàn thành đủ cả 5 thách thức sẽ được cộng tối đa 20 điểm, nâng tổng điểm lên 100.
 
+Code bonus đã được bổ sung; xem [cấu hình, kết quả kiểm chứng và cách chụp bằng chứng](nop-bai/bonus.md).
+
 ### Bonus 1: Tracking MLflow Từ Xa Với DagsHub (4 điểm)
 
 Thay vì lưu MLflow vào file cục bộ (`sqlite:///mlflow.db`), kết nối đến server MLflow miễn phí trên DagsHub:

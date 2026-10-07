@@ -1,4 +1,5 @@
 import json
+import io
 
 import pytest
 
@@ -25,6 +26,9 @@ def test_approved_model_and_report_are_uploaded(tmp_path, monkeypatch):
     calls = []
 
     class FakeS3:
+        def get_object(self, **kwargs):
+            return {"Body": io.BytesIO(b'{"f1_score": 0.65}')}
+
         def upload_file(self, filename, bucket, key):
             calls.append((filename, bucket, key))
 
