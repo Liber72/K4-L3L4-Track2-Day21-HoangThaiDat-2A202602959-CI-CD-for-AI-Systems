@@ -18,7 +18,13 @@
   "public_ip": "100.63.200.231",
   "public_dns": "ec2-100-63-200-231.compute-1.amazonaws.com",
   "root_volume_gib": 16,
-  "model_sha256": "db70dfe156d41efad2539f07a5963da79120493369431a7f1c2a5663c838a712",
+  "model_sha256": "0b4678d0fc940bee246dc72325fb937f384e2c8cf3dbe58565ea13ce9ae7a124",
   "model_f1_score": 0.7149321266968326,
-  "status": "api_verified"
+  "model_accuracy": 0.874,
+  "model_train_samples": 22361,
+  "ci_run_id": 37653235373,
+  "ci_event": "workflow_dispatch",
+  "ci_run_url": "https://github.com/Liber72/K4-L3L4-Track2-Day21-HoangThaiDat-2A202602959-CI-CD-for-AI-Systems/actions/runs/37653235373",
+  "pending_rerun_id": 37651485149,
+  "status": "step2_ci_and_api_verified"
 }

@@ -41,7 +41,7 @@ từ **116.96.45.254/32**, là IP internet của máy cấu hình tại thời �
 
 Không thay đổi các policy đã có của group hoặc tạo access key mới cho user.
 
-## Kiểm chứng thực tế
+## Kiểm chứng AWS ban đầu bằng model local
 
 - DVC remote `labstore` đã trỏ tới `s3://income-day21-972243443873-use1/dvc`.
 - `dvc push` thành công cho cả ba datasets. Số mẫu vẫn là 22.361 / 500 / 22.361;
@@ -66,11 +66,30 @@ Kết quả gọi API từ máy người dùng:
 Đây là xác nhận cấu hình AWS và serving bằng model local. Chưa dùng lần triển khai này
 làm bằng chứng cho GitHub Actions Bước 2 hoặc tự động hóa Bước 3.
 
+## GitHub Actions Bước 2 đã thành công
+
+[Workflow 37653235373](https://github.com/Liber72/K4-L3L4-Track2-Day21-HoangThaiDat-2A202602959-CI-CD-for-AI-Systems/actions/runs/37653235373)
+trên commit `6d0fa2d` hoàn thành cả bốn jobs Unit Test, Train, Quality Gate và Release.
+Lần chạy dùng `workflow_dispatch`; chưa dùng lần này làm bằng chứng cho trigger commit dữ liệu ở Bước 3.
+
+- Report CI: F1 `0.7149321266968326`, accuracy `0.874`, train 22.361 mẫu, holdout 500 mẫu.
+- Model trên EC2 khớp SHA-256 của artifact `candidate-model` trong lần chạy này:
+  `0b4678d0fc940bee246dc72325fb937f384e2c8cf3dbe58565ea13ce9ae7a124`.
+- Service `income-api` active; gọi từ máy người dùng: `/healthz` trả `ok`,
+  `/score` với mẫu `[28,2,14,2,11,0,1,0,0,45]` trả `thu_nhap_cao`.
+- Security group sau Release chỉ còn các rule IP máy người dùng trên cổng 22/8080;
+  rule SSH tạm của runner đã được thu hồi.
+
+Lần re-run cũ `37651485149` vẫn hiển thị queued và GitHub từ chối cả cancel/force-cancel
+với lỗi re-run chưa được đưa vào hàng đợi nội bộ. Kiểm tra và dừng lần cũ này trước khi
+triển khai batch 2 để tránh một lần chạy muộn ghi đè model. Dùng link lần thành công
+ở trên để chụp `02-actions-buoc-2.png`. Batch 2 chưa được ghép.
+
 ## Các giá trị cần nhập vào GitHub
 
 Hướng dẫn tự tạo IAM user CI và Secret `STORAGE_CREDENTIALS`:
 [IAM cho GitHub Actions](../../docs/iam-github-actions.md).
-Policy cần dán vào IAM là `ci-s3-policy.json`; chưa tạo user/access key theo hướng dẫn này.
+User CI `income-day21-ci` đã có cả `Day21IncomeCI` và `Day21IncomeCISSH`.
 
 Repo:
 `Liber72/K4-L3L4-Track2-Day21-HoangThaiDat-2A202602959-CI-CD-for-AI-Systems`.
@@ -85,16 +104,14 @@ Settings → Secrets and variables → Actions:
 | Secret | `SERVER_HOST` | `100.63.200.231` |
 | Secret | `SERVER_USER` | `ubuntu` |
 | Secret | `SERVER_SSH_KEY` | Nội dung private key trong `.local/aws/income-day21.pem`; không commit hoặc gửi vào chat |
-| Secret | `STORAGE_CREDENTIALS` | Credentials JSON theo workflow hiện tại; chưa nhập vào GitHub |
+| Secret | `STORAGE_CREDENTIALS` | Credentials JSON của `income-day21-ci`, người dùng đã nhập vào GitHub |
 
-Credentials của `ai-lab-user` có quyền IAM/EC2 rộng. Khi nối CI, nên dùng danh tính CI
-riêng với quyền cần thiết hoặc chuyển workflow sang GitHub OIDC; chưa tạo/gắn danh tính
-CI và chưa sao chép credentials local sang GitHub.
+CI đã dùng danh tính riêng `income-day21-ci`; không dùng credentials của `ai-lab-user`.
+EC2 vẫn dùng instance role để tải model.
 
 Workflow đã thêm mở tạm SSH cho IP /32 của runner và thu hồi sau Release.
-Người dùng cần gắn policy `ci-ssh-policy.json` vào user CI và nhập variable
-`EC2_SECURITY_GROUP_ID` theo [hướng dẫn IAM](../../docs/iam-github-actions.md).
-Chưa chạy phần này trên GitHub. Nếu runner bị tắt đột ngột hoặc cleanup thất bại,
+Policy `ci-ssh-policy.json` đã được người dùng gắn vào user CI và variable
+`EC2_SECURITY_GROUP_ID` đã được nhập. Nếu runner bị tắt đột ngột hoặc cleanup thất bại,
 cần xóa rule của lần chạy theo Description `income-day21-actions-<run-id>-<attempt>`.
 
 ## Truy cập và vận hành
