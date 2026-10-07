@@ -1,4 +1,4 @@
-name: Income Model CI/CD
+name: Income Model CI/CD v2
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
       - 'params.yaml'
       - 'requirements*.txt'
       - 'pytest.ini'
-      - '.github/workflows/cicd.yml'
+      - '.github/workflows/cicd-v2.yml'
   workflow_dispatch:
 
 permissions:
@@ -20,7 +20,7 @@ permissions:
 
 # Do not let a second run overwrite the model while the first is deploying.
 concurrency:
-  group: income-cicd-${{ github.ref }}
+  group: income-cicd-v2-${{ github.ref }}
   cancel-in-progress: false
 
 env:

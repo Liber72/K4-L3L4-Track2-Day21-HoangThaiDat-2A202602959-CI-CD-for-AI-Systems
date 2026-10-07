@@ -85,6 +85,16 @@ với lỗi re-run chưa được đưa vào hàng đợi nội bộ. Kiểm tra
 triển khai batch 2 để tránh một lần chạy muộn ghi đè model. Dùng link lần thành công
 ở trên để chụp `02-actions-buoc-2.png`. Batch 2 chưa được ghép.
 
+
+## Workflow thay thế
+
+Workflow `Income Model CI/CD v2` dùng file `.github/workflows/cicd-v2.yml`,
+thay cho file `cicd.yml` trong các ví dụ của lab. Cả bốn jobs, quality gate,
+Secrets và Variables giữ nguyên. Nhóm concurrency riêng
+`income-cicd-v2-${{ github.ref }}` tách hàng đợi mới khỏi nhóm cũ.
+Workflow cũ được disable để không nhận trigger mới; thao tác này không hủy
+run `37651485149`. Lịch sử lần chạy Bước 2 thành công vẫn được giữ.
+
 ## Các giá trị cần nhập vào GitHub
 
 Hướng dẫn tự tạo IAM user CI và Secret `STORAGE_CREDENTIALS`:

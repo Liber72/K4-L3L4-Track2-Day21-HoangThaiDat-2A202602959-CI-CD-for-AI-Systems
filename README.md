@@ -152,7 +152,7 @@ Cấu trúc này là kết quả cuối cùng sau khi hoàn thành cả ba bư�
 <thu-muc-goc-cua-repo>/
 ├── .github/
 │   └── workflows/
-│       └── cicd.yml           <- Pipeline CI/CD (Bước 2)
+│       └── cicd-v2.yml        <- Pipeline CI/CD (Bước 2)
 ├── .dvc/
 │   └── config                 <- Cấu hình DVC remote (Bước 2)
 ├── data/
@@ -316,7 +316,7 @@ Thay vì lưu MLflow vào file cục bộ (`sqlite:///mlflow.db`), kết nối �
 
 - Tạo tài khoản tại https://dagshub.com và kết nối repo GitHub của bạn.
 - Thêm các biến môi trường MLflow vào GitHub Secrets.
-- Cập nhật `cicd.yml` để sử dụng tracking server của DagsHub thay vì file cục bộ.
+- Cập nhật `cicd-v2.yml` để sử dụng tracking server của DagsHub thay vì file cục bộ.
 
 Kết quả: Mỗi lần chạy trong GitHub Actions sẽ được ghi lên DagsHub, có thể xem từ bất cứ đâu.
 
@@ -331,7 +331,7 @@ Kết quả: Mỗi lần chạy trong GitHub Actions sẽ được ghi lên Dags
 
 ### Bonus 3: Báo Cáo Precision / Recall Tự Động (4 điểm)
 
-Thêm một bước trong `cicd.yml` để tự động tạo báo cáo chi tiết sau mỗi lần huấn luyện:
+Thêm một bước trong `cicd-v2.yml` để tự động tạo báo cáo chi tiết sau mỗi lần huấn luyện:
 
 - Tính confusion matrix và in ra ở dạng văn bản (không cần ảnh).
 - Tính `precision` và `recall` riêng cho từng lớp, ghi vào `outputs/detail.txt`.
