@@ -1,0 +1,18 @@
+[Unit]
+Description=Adult Income FastAPI Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/income-app
+Environment="ARTIFACT_BUCKET=income-day21-972243443873-use1"
+Environment="AWS_DEFAULT_REGION=us-east-1"
+Environment="MODEL_SOURCE=cloud"
+Environment="MODEL_PATH=/home/ubuntu/income-app/models/model.joblib"
+ExecStart=/home/ubuntu/income-app/.venv/bin/python -m src.serve
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

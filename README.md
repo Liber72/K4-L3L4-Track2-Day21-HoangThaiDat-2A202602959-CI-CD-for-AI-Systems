@@ -4,6 +4,10 @@ Course: AIInAction - VinUni
 Buổi: Day 21 - CI/CD cho AI Systems
 Khoá: K4
 
+Phần code trong repo đã được hoàn thiện theo AWS (S3 + EC2).
+Hướng dẫn cấu hình và chạy trên Windows: [docs/cau-hinh-aws.md](docs/cau-hinh-aws.md).
+Kết quả thí nghiệm cục bộ: [docs/ket-qua-local.md](docs/ket-qua-local.md).
+
 ---
 
 ## Mục Tiêu Học Tập

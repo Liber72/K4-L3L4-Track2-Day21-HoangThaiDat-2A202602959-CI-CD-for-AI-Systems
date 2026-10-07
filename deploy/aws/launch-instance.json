@@ -1,0 +1,53 @@
+{
+  "ImageId": "ami-062944a84867f2386",
+  "InstanceType": "t3.small",
+  "MinCount": 1,
+  "MaxCount": 1,
+  "KeyName": "income-day21-deploy",
+  "IamInstanceProfile": {"Name": "income-api-day21-ec2-role"},
+  "NetworkInterfaces": [
+    {
+      "DeviceIndex": 0,
+      "SubnetId": "subnet-02e82ce306b6f1fb5",
+      "Groups": ["sg-046a641836fa05b95"],
+      "AssociatePublicIpAddress": true,
+      "DeleteOnTermination": true
+    }
+  ],
+  "BlockDeviceMappings": [
+    {
+      "DeviceName": "/dev/sda1",
+      "Ebs": {
+        "VolumeSize": 16,
+        "VolumeType": "gp3",
+        "Encrypted": true,
+        "DeleteOnTermination": true
+      }
+    }
+  ],
+  "MetadataOptions": {
+    "HttpEndpoint": "enabled",
+    "HttpTokens": "required",
+    "HttpPutResponseHopLimit": 1
+  },
+  "CreditSpecification": {"CpuCredits": "standard"},
+  "TagSpecifications": [
+    {
+      "ResourceType": "instance",
+      "Tags": [
+        {"Key": "Name", "Value": "income-api"},
+        {"Key": "Project", "Value": "income-day21"},
+        {"Key": "ManagedBy", "Value": "codex"}
+      ]
+    },
+    {
+      "ResourceType": "volume",
+      "Tags": [
+        {"Key": "Name", "Value": "income-api-day21-root"},
+        {"Key": "Project", "Value": "income-day21"},
+        {"Key": "ManagedBy", "Value": "codex"}
+      ]
+    }
+  ],
+  "ClientToken": "income-day21-972243443873-use1-20261007-v1"
+}
