@@ -47,4 +47,4 @@ Holdout có 124 mẫu dương trên 500 mẫu (24,8%). Luôn dự đoán thu nh�
 - [x] Bonus 2 - Điều chỉnh ngưỡng quyết định: Quét 0,1–0,9, chọn F1 cao nhất.
 - [x] Bonus 3 - Báo cáo precision / recall tự động: Xuất confusion matrix và báo cáo vào artifact.
 - [x] Bonus 4 - Hoàn trả về phiên bản trước: So F1 với report S3 trước Release.
-- [x] Bonus 5 - Cảnh báo lệch lạc dữ liệu: Drift: Cảnh báo tỷ lệ dương lệch hơn 5 điểm phần trăm.
+- [x] Bonus 5 - Cảnh báo lệch lạc dữ liệu: Cảnh báo tỷ lệ dương lệch hơn 5 điểm phần trăm.
