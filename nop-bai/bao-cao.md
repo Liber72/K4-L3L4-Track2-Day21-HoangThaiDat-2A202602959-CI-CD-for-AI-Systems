@@ -80,10 +80,10 @@ Cần nêu được:
 
 | | f1_score | accuracy |
 |---|---|---|
-| Bước 2 (chỉ `train_batch1`) | ___ | ___ |
-| Bước 3 (thêm `train_batch2`) | ___ | ___ |
+| Bước 2 (chỉ `train_batch1`) | 0.7149 | 0.8740 |
+| Bước 3 (thêm `train_batch2`) | 0.7354 | 0.8820 |
 
-**Nhận xét:** ___
+**Nhận xét:** Khi tăng dữ liệu huấn luyện từ 22.361 lên 44.722 mẫu và giữ nguyên siêu tham số, F1 tăng khoảng 0,0205, accuracy tăng 0,008 trên cùng holdout 500 mẫu. Dữ liệu bổ sung giúp mô hình trong lần đánh giá này, nhưng một holdout nhỏ chưa đủ để khẳng định chất lượng luôn tăng khi thêm dữ liệu. Commit `d473ac9` chỉ đổi con trỏ DVC và tự kích hoạt đủ bốn jobs, đưa model mới lên EC2 mà không cần chạy workflow thủ công.
 
 <!--
 Một câu trả lời trung thực kiểu "f1 giảm 0,01 vì dữ liệu mới cùng phân phối, không mang

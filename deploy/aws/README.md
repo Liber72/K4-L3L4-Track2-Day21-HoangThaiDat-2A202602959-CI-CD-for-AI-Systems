@@ -80,10 +80,9 @@ Lần chạy dùng `workflow_dispatch`; chưa dùng lần này làm bằng chứ
 - Security group sau Release chỉ còn các rule IP máy người dùng trên cổng 22/8080;
   rule SSH tạm của runner đã được thu hồi.
 
-Lần re-run cũ `37651485149` vẫn hiển thị queued và GitHub từ chối cả cancel/force-cancel
-với lỗi re-run chưa được đưa vào hàng đợi nội bộ. Kiểm tra và dừng lần cũ này trước khi
-triển khai batch 2 để tránh một lần chạy muộn ghi đè model. Dùng link lần thành công
-ở trên để chụp `02-actions-buoc-2.png`. Batch 2 chưa được ghép.
+Lần re-run cũ `37651485149` vẫn hiển thị queued; GitHub từ chối cancel/force-cancel
+và delete. Workflow thay thế bên dưới dùng hàng đợi riêng; thao tác này không hủy
+run cũ. Dùng link lần thành công ở trên để chụp `02-actions-buoc-2.png`.
 
 
 ## Workflow thay thế
@@ -94,6 +93,29 @@ Secrets và Variables giữ nguyên. Nhóm concurrency riêng
 `income-cicd-v2-${{ github.ref }}` tách hàng đợi mới khỏi nhóm cũ.
 Workflow cũ được disable để không nhận trigger mới; thao tác này không hủy
 run `37651485149`. Lịch sử lần chạy Bước 2 thành công vẫn được giữ.
+
+## GitHub Actions Bước 3 đã thành công
+
+[Workflow 37658213019](https://github.com/Liber72/K4-L3L4-Track2-Day21-HoangThaiDat-2A202602959-CI-CD-for-AI-Systems/actions/runs/37658213019)
+tự chạy từ sự kiện `push` của commit `d473ac9`, chỉ thay đổi
+`data/train_batch1.csv.dvc`. Dữ liệu được ghép đúng một lần: 22.361 → 44.722 mẫu;
+holdout 500 mẫu giữ nguyên. DVC đã push dữ liệu mới lên S3 trước khi Git push.
+Cả Unit Test, Train, Quality Gate và Release đều thành công.
+
+| Chỉ số CI | Bước 2 | Bước 3 |
+|---|---|---|
+| F1 lớp thu nhập cao | 0.7149321267 | 0.7354260090 |
+| Accuracy | 0.874 | 0.882 |
+| Số mẫu huấn luyện | 22.361 | 44.722 |
+
+Siêu tham số giữ nguyên: `n_estimators=200`, `learning_rate=0.1`, `max_depth=5`.
+Model trên EC2 khớp SHA-256 của artifact `candidate-model` Bước 3:
+`1c8c0ecacca037f5372fee54c5172e7b311f1f56f28e2ddd8cdaf2eb76dce7ca`.
+Service `income-api` active, `/healthz` trả `ok` và `/score` trả `thu_nhap_cao`
+cho mẫu `[28,2,14,2,11,0,1,0,0,45]`. Release đã thu hồi quyền SSH tạm của runner.
+
+Chụp link lần chạy này thành `nop-bai/anh-chup-man-hinh/03-actions-buoc-3.png`,
+hiện URL, commit dữ liệu và cả bốn jobs màu xanh. Ảnh này chưa được thêm vào repo.
 
 ## Các giá trị cần nhập vào GitHub
 

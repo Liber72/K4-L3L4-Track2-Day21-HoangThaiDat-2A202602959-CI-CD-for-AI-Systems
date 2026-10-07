@@ -117,8 +117,8 @@ Tải file `outputs/report.json` từ artifacts của hai lần chạy để so 
 
 | Chỉ số | Bước 2 (22.361 mẫu) | Bước 3 (44.722 mẫu) |
 |---|---|---|
-| f1_score | ? | ? |
-| accuracy | ? | ? |
+| f1_score | 0.7149321267 | 0.7354260090 |
+| accuracy | 0.874 | 0.882 |
 
 Điền vào bảng trên dựa trên kết quả thực tế của bạn.
 
