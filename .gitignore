@@ -17,4 +17,4 @@ pytest-cache-files-*/
 *.pem
 *.key
 .local/
-.docs/
+docs/

@@ -31,7 +31,7 @@ Lớp thu nhập trên 50K chiếm khoảng 24,8% dữ liệu; holdout có 124 m
 | Release lỗi AccessDenied. | User CI thiếu quyền mở SSH. | Gắn policy SSH vào user CI. |
 | Re-run kẹt queued. | GitHub từ chối hủy và xóa. | Tạo workflow v2 với concurrency riêng; run cũ vẫn kẹt. |
 | DVC lỗi tương thích. | Phiên bản pathspec không phù hợp. | Cố định pathspec 0.11.2 trong requirements. |
-||||
+|Bị lỗi action không thể kill run cũ. | GitHub từ chối hủy và xóa. | Tạo workflow v2 với concurrency riêng; run cũ vẫn kẹt. |
 
 ## 4. So Sánh Bước 2 và Bước 3
 
